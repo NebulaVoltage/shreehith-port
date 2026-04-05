@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shreehith Sai Vodapally — The Velocity Engine</title>
+  <meta name="description" content="Portfolio of Shreehith Sai Vodapally — High-Performance Engineering. ECE @ KLH, Founder of Spectrum, AI & VR Architect. Built for speed." />
+  <meta name="theme-color" content="#0A0A0A" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- CDN Libraries -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+</head>
+<body>
+
+  <!-- Loading Screen -->
+  <div id="loader">
+    <div class="loader-ring"></div>
+    <span class="loader-text">Ignition Sequence</span>
+    <div class="loader-bar"></div>
+  </div>
+
+  <!-- Background Wind Tunnel Canvas -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation -->
+  <nav id="main-nav" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" id="nav-logo">S.V</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#telemetry" id="nav-telemetry">Telemetry</a></li>
+      <li><a href="#grandprix" id="nav-grandprix">Grand Prix</a></li>
+      <li><a href="#powerunit" id="nav-powerunit">Power Unit</a></li>
+      <li><a href="#pitstop" id="nav-pitstop">Pit Stop</a></li>
+    </ul>
+  </nav>
+
+  <!-- Content -->
+  <div id="content-wrapper">
+
+    <!-- ==================== THE GRID (HERO) ==================== -->
+    <section id="hero" class="section">
+      <!-- 3D Front Wing Canvas -->
+      <canvas id="hero-3d-canvas"></canvas>
+
+      <div class="hero-content">
+        <p class="hero-tag reveal">// THE VELOCITY ENGINE</p>
+        <h1 class="hero-title reveal" id="hero-heading">
+          Shreehith Sai Vodapally
+          <span class="title-accent">High-Performance Engineering.</span>
+        </h1>
+        <p class="hero-subtitle reveal">
+          <span class="highlight">ECE @ KLH</span> &nbsp;|&nbsp; Founder of <span class="highlight">Spectrum</span> &nbsp;|&nbsp; <span class="highlight">AI & VR</span> Architect
+        </p>
+        <div class="hero-ctas reveal">
+          <a href="#grandprix" class="btn-ghost" id="cta-grandprix">
+            <span class="btn-indicator"></span>
+            View Grand Prix
+          </a>
+          <a href="#pitstop" class="btn-ghost" id="cta-pitstop">
+            <span class="btn-indicator"></span>
+            Pit Stop
+          </a>
+        </div>
+      </div>
+      <div class="scroll-prompt reveal" id="scroll-prompt">
+        <span>Scroll to Deploy</span>
+        <div class="scroll-arrow"></div>
+      </div>
+    </section>
+
+    <!-- ==================== THE TELEMETRY (ABOUT) ==================== -->
+    <section id="telemetry" class="section">
+      <div class="section-inner">
+        <div class="telemetry-grid">
+          <!-- Driver Stats Panel -->
+          <div class="driver-stats-panel reveal" id="driver-stats-panel">
+            <div class="driver-header">
+              <span class="driver-number">079</span>
+              <div class="driver-meta">
+                <span class="driver-name">SHREEHITH SAI</span>
+                <span class="driver-team">Team Spectrum // ECE Division</span>
+              </div>
+            </div>
+
+            <div class="telemetry-bar-group" id="telemetry-bars">
+              <div class="telemetry-bar">
+                <div class="telemetry-bar-header">
+                  <span class="telemetry-bar-label">Hardware Engineering</span>
+                  <span class="telemetry-bar-value" data-value="95">0%</span>
+                </div>
+                <div class="telemetry-bar-track">
+                  <div class="telemetry-bar-fill" data-width="95"></div>
+                </div>
+              </div>
+              <div class="telemetry-bar">
+                <div class="telemetry-bar-header">
+                  <span class="telemetry-bar-label">AI / Machine Learning</span>
+                  <span class="telemetry-bar-value" data-value="90">0%</span>
+                </div>
+                <div class="telemetry-bar-track">
+                  <div class="telemetry-bar-fill" data-width="90"></div>
+                </div>
+              </div>
+              <div class="telemetry-bar">
+                <div class="telemetry-bar-header">
+                  <span class="telemetry-bar-label">VR Development</span>
+                  <span class="telemetry-bar-value" data-value="92">0%</span>
+                </div>
+                <div class="telemetry-bar-track">
+                  <div class="telemetry-bar-fill" data-width="92"></div>
+                </div>
+              </div>
+              <div class="telemetry-bar">
+                <div class="telemetry-bar-header">
+                  <span class="telemetry-bar-label">Full-Stack Web</span>
+                  <span class="telemetry-bar-value" data-value="85">0%</span>
+                </div>
+                <div class="telemetry-bar-track">
+                  <div class="telemetry-bar-fill" data-width="85"></div>
+                </div>
+              </div>
+              <div class="telemetry-bar">
+                <div class="telemetry-bar-header">
+                  <span class="telemetry-bar-label">Embedded Systems</span>
+                  <span class="telemetry-bar-value" data-value="88">0%</span>
+                </div>
+                <div class="telemetry-bar-track">
+                  <div class="telemetry-bar-fill" data-width="88"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Text Content -->
+          <div class="telemetry-text">
+            <span class="section-label reveal">// THE TELEMETRY</span>
+            <h2 class="section-title reveal">Driver <span class="accent">Profile</span></h2>
+            <p class="reveal">
+              First-year Electronics & Communication Engineering student at KLH University,
+              pushing the redline of what's possible. Founded <strong style="color:var(--crimson)">Spectrum</strong> — a VR innovation lab —
+              and engineered AI-powered tools that merge hardware precision with intelligent software.
+            </p>
+            <p class="reveal">
+              When I'm not architecting circuits or training neural networks, you'll find me
+              dissecting F1 telemetry data, prototyping immersive VR experiences, or pushing
+              embedded systems beyond their designed limits.
+            </p>
+
+            <div class="race-stats reveal">
+              <div class="race-stat">
+                <span class="race-stat-number" id="stat-laps">5+</span>
+                <span class="race-stat-label">Projects</span>
+              </div>
+              <div class="race-stat">
+                <span class="race-stat-number" id="stat-sectors">8+</span>
+                <span class="race-stat-label">Technologies</span>
+              </div>
+              <div class="race-stat">
+                <span class="race-stat-number" id="stat-topspeed">∞</span>
+                <span class="race-stat-label">Ambition</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE GRAND PRIX (PROJECTS) ==================== -->
+    <section id="grandprix" class="section">
+      <div class="section-inner">
+        <div class="projects-header">
+          <span class="section-label reveal">// THE GRAND PRIX</span>
+          <h2 class="section-title reveal">Performance <span class="accent">Modules</span></h2>
+        </div>
+
+        <div class="performance-modules" id="performance-modules">
+          <!-- Module 1: Spectrum VR -->
+          <div class="perf-module reveal" id="module-spectrum">
+            <div class="perf-module-visual project-gradient-1">
+              <canvas id="spectrum-canvas"></canvas>
+            </div>
+            <div class="perf-module-body">
+              <span class="module-tag">VR / Innovation</span>
+              <h3 class="module-title">Spectrum VR</h3>
+              <p class="module-desc">
+                A next-generation virtual reality platform redefining immersive experiences.
+                Built with spatial computing principles and real-time neural rendering.
+              </p>
+              <div class="module-tech-stack">
+                <span class="tech-chip">Unity</span>
+                <span class="tech-chip">C#</span>
+                <span class="tech-chip">OpenXR</span>
+                <span class="tech-chip">Spatial AI</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 2: SmartTrace -->
+          <div class="perf-module reveal" id="module-smarttrace">
+            <div class="perf-module-visual project-gradient-2">
+              <canvas id="smarttrace-canvas"></canvas>
+            </div>
+            <div class="perf-module-body">
+              <span class="module-tag">AI / Data Flow</span>
+              <h3 class="module-title">SmartTrace</h3>
+              <p class="module-desc">
+                An intelligent data-flow visualization engine transforming complex datasets
+                into interactive, real-time abstract visualizations using ML pipelines.
+              </p>
+              <div class="module-tech-stack">
+                <span class="tech-chip">Python</span>
+                <span class="tech-chip">TensorFlow</span>
+                <span class="tech-chip">D3.js</span>
+                <span class="tech-chip">WebGL</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Module 3: Epoch Luxury -->
+          <div class="perf-module reveal" id="module-epoch">
+            <div class="perf-module-visual project-gradient-3">
+              <canvas id="epoch-canvas"></canvas>
+            </div>
+            <div class="perf-module-body">
+              <span class="module-tag">Design / Precision</span>
+              <h3 class="module-title">Epoch Luxury</h3>
+              <p class="module-desc">
+                A premium digital watch-face collection blending Swiss horological tradition
+                with modern interface design. Crafted for smartwatch platforms.
+              </p>
+              <div class="module-tech-stack">
+                <span class="tech-chip">Figma</span>
+                <span class="tech-chip">JavaScript</span>
+                <span class="tech-chip">Canvas API</span>
+                <span class="tech-chip">WearOS</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE POWER UNIT (SKILLS) ==================== -->
+    <section id="powerunit" class="section">
+      <div class="section-inner">
+        <div class="powerunit-header">
+          <span class="section-label reveal">// THE POWER UNIT</span>
+          <h2 class="section-title reveal">Engineering <span class="accent">Arsenal</span></h2>
+        </div>
+
+        <!-- 3D Engine -->
+        <div class="engine-3d-container reveal" id="engine-3d-wrapper">
+          <span class="engine-instruction">Click engine parts to explore</span>
+          <canvas id="engine-canvas"></canvas>
+          <div class="engine-detail-panel" id="engine-detail">
+            <span class="engine-part-name" id="engine-part-name">PISTON</span>
+            <span class="engine-part-desc" id="engine-part-desc">Java / OOP Design Patterns</span>
+          </div>
+        </div>
+
+        <!-- Tech Specs Grid -->
+        <div class="tech-specs-grid" id="tech-specs-grid">
+          <div class="tech-spec-card reveal">
+            <span class="spec-icon">⚡</span>
+            <h3 class="spec-title">Java</h3>
+            <p class="spec-desc">OOP, Data Structures, Spring fundamentals.</p>
+          </div>
+          <div class="tech-spec-card reveal">
+            <span class="spec-icon">🧠</span>
+            <h3 class="spec-title">Python</h3>
+            <p class="spec-desc">ML pipelines, automation, data science.</p>
+          </div>
+          <div class="tech-spec-card reveal">
+            <span class="spec-icon">🌐</span>
+            <h3 class="spec-title">Web Dev</h3>
+            <p class="spec-desc">HTML, CSS, JavaScript, Three.js, GSAP.</p>
+          </div>
+          <div class="tech-spec-card reveal">
+            <span class="spec-icon">🤖</span>
+            <h3 class="spec-title">Machine Learning</h3>
+            <p class="spec-desc">TensorFlow, scikit-learn, neural networks.</p>
+          </div>
+          <div class="tech-spec-card reveal">
+            <span class="spec-icon">🔌</span>
+            <h3 class="spec-title">Embedded</h3>
+            <p class="spec-desc">Arduino, ESP32, FPGA, circuit design.</p>
+          </div>
+          <div class="tech-spec-card reveal">
+            <span class="spec-icon">🎮</span>
+            <h3 class="spec-title">VR / AR</h3>
+            <p class="spec-desc">Unity, OpenXR, spatial computing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== THE PIT STOP (CONTACT) ==================== -->
+    <section id="pitstop" class="section">
+      <div class="section-inner">
+        <div class="pitstop-grid">
+          <!-- Info Column -->
+          <div class="pitstop-info">
+            <span class="section-label reveal">// THE PIT STOP</span>
+            <h2 class="section-title reveal">Open <span class="accent">Comms</span></h2>
+            <p class="reveal">
+              Whether you have a project blueprint, collaboration opportunity, or
+              just want to debate race strategy — I'm always on the radio.
+            </p>
+
+            <div class="social-links reveal" id="social-links">
+              <a href="https://github.com/NebulaVoltage" target="_blank" rel="noopener" class="social-link" id="social-github" title="GitHub">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener" class="social-link" id="social-linkedin" title="LinkedIn">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+              </a>
+              <a href="mailto:shreehith@example.com" class="social-link" id="social-email" title="Email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </a>
+              <a href="https://twitter.com" target="_blank" rel="noopener" class="social-link" id="social-twitter" title="X / Twitter">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4l11.733 16h4.267l-11.733 -16z"/><path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772"/></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Pit Wall Monitor Form -->
+          <div class="pitwall-monitor reveal" id="pitwall-monitor">
+            <form id="contact-form" class="form-content" onsubmit="return false;">
+              <div class="form-group">
+                <label class="form-label" for="contact-name">Callsign</label>
+                <input type="text" class="form-input" id="contact-name" placeholder="Your name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-email">Frequency</label>
+                <input type="email" class="form-input" id="contact-email" placeholder="your@email.com" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="contact-message">Transmission</label>
+                <textarea class="form-textarea" id="contact-message" placeholder="Your message to the pit wall..."></textarea>
+              </div>
+              <button type="submit" class="btn-transmit" id="btn-transmit">Transmit</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="footer">
+      <p class="footer-text">
+        Engineered by <span class="accent">Shreehith Sai Vodapally</span> · © 2026 · Powered by Velocity
+      </p>
+    </footer>
+
+  </div><!-- /content-wrapper -->
+
+  <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,1376 @@
+/* ============================================================
+   THE VELOCITY ENGINE — F1 Design System & Styles
+   Obsidian Black · Raw Carbon Grey · Championship Crimson
+   ============================================================ */
+
+/* --- Google Fonts --- */
+@import url('https://fonts.googleapis.com/css2?family=Michroma&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* --- Design Tokens --- */
+:root {
+  /* Backgrounds */
+  --bg-obsidian: #0A0A0A;
+  --bg-carbon: #111111;
+  --bg-surface: rgba(18, 18, 18, 0.75);
+  --bg-surface-solid: #141414;
+  --bg-elevated: rgba(25, 25, 25, 0.6);
+
+  /* Accents */
+  --crimson: #D70000;
+  --crimson-dim: #A00000;
+  --crimson-bright: #FF1A1A;
+  --crimson-glow: rgba(215, 0, 0, 0.4);
+  --crimson-subtle: rgba(215, 0, 0, 0.08);
+  --carbon-grey: #3A3A3A;
+  --carbon-light: #555555;
+  --steel: #888888;
+  --white-hot: #FFFFFF;
+
+  /* Text */
+  --text-primary: #F0F0F0;
+  --text-secondary: #999999;
+  --text-muted: #666666;
+  --text-data: #CCCCCC;
+
+  /* Dark Glass */
+  --glass-border: rgba(255, 255, 255, 0.06);
+  --glass-border-hover: rgba(215, 0, 0, 0.35);
+  --glass-blur: blur(16px);
+  --glass-bg: rgba(15, 15, 15, 0.7);
+  --glass-bg-strong: rgba(10, 10, 10, 0.85);
+
+  /* Shadows */
+  --shadow-hard: 0 4px 30px rgba(0, 0, 0, 0.8);
+  --shadow-crimson: 0 0 40px rgba(215, 0, 0, 0.15);
+  --shadow-lift: 0 12px 40px rgba(0, 0, 0, 0.6);
+
+  /* Spacing */
+  --section-padding: clamp(80px, 12vh, 160px);
+  --container-max: 1200px;
+  --gap: clamp(16px, 2vw, 32px);
+
+  /* Typography */
+  --font-race: 'Michroma', sans-serif;
+  --font-data: 'Share Tech Mono', monospace;
+  --font-body: 'Inter', sans-serif;
+
+  /* Razor-sharp edges */
+  --radius-sharp: 4px;
+  --radius-panel: 6px;
+  --radius-card: 8px;
+
+  /* Transitions */
+  --ease-snap: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-aggressive: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* --- Carbon Fiber Pattern --- */
+.carbon-texture::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.015) 2px,
+      rgba(255, 255, 255, 0.015) 4px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.01) 2px,
+      rgba(255, 255, 255, 0.01) 4px
+    );
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-body);
+  background-color: var(--bg-obsidian);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.6;
+  position: relative;
+}
+
+/* Scrollbar — Crimson */
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-obsidian);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(215, 0, 0, 0.3);
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(215, 0, 0, 0.6);
+}
+
+/* Selection */
+::selection {
+  background: rgba(215, 0, 0, 0.3);
+  color: #fff;
+}
+
+/* --- Canvas Layer --- */
+#bg-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* --- Loading Screen --- */
+#loader {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--bg-obsidian);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loader.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-ring {
+  width: 56px;
+  height: 56px;
+  border: 2px solid rgba(215, 0, 0, 0.15);
+  border-top-color: var(--crimson);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loader-text {
+  font-family: var(--font-data);
+  font-size: 0.8rem;
+  color: var(--crimson);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.loader-bar {
+  width: 200px;
+  height: 2px;
+  background: rgba(215, 0, 0, 0.1);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+.loader-bar::after {
+  content: '';
+  position: absolute;
+  left: -50%;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+  animation: loaderSlide 1.2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+@keyframes loaderSlide {
+  0% { left: -50%; }
+  100% { left: 100%; }
+}
+
+/* --- Navigation --- */
+#main-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(10, 10, 10, 0.8);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  transform: translateY(-100%);
+  transition: transform 0.45s var(--ease-snap);
+}
+#main-nav.visible {
+  transform: translateY(0);
+}
+
+/* Racing stripe on nav */
+#main-nav::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--crimson) 20%,
+    var(--crimson) 80%,
+    transparent 100%
+  );
+  opacity: 0.4;
+}
+
+.nav-logo {
+  font-family: var(--font-race);
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: var(--crimson);
+  letter-spacing: 3px;
+  text-decoration: none;
+  text-transform: uppercase;
+  position: relative;
+}
+
+.nav-links {
+  display: flex;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  position: relative;
+  transition: color 0.3s ease;
+}
+.nav-links a:hover {
+  color: var(--crimson);
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--crimson);
+  transition: width 0.3s var(--ease-snap);
+}
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* Mobile nav toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.nav-toggle span {
+  width: 22px;
+  height: 1.5px;
+  background: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+/* --- Content Wrapper --- */
+#content-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Section Base --- */
+.section {
+  min-height: 100vh;
+  padding: var(--section-padding) 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.section-inner {
+  max-width: var(--container-max);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* Section headers */
+.section-label {
+  font-family: var(--font-data);
+  font-size: 0.68rem;
+  color: var(--crimson);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  opacity: 0.9;
+  display: block;
+}
+
+.section-title {
+  font-family: var(--font-race);
+  font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.3;
+  margin-bottom: 28px;
+  letter-spacing: 1px;
+}
+
+.section-title .accent {
+  color: var(--crimson);
+  text-shadow: 0 0 40px var(--crimson-glow);
+}
+
+/* --- GSAP reveal class --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+/* ============================================================
+   HERO — THE GRID
+   ============================================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  padding: 40px;
+}
+
+/* Subtle grid lines behind hero */
+#hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(0deg, transparent 49.5%, rgba(215, 0, 0, 0.03) 50%, transparent 50.5%),
+    linear-gradient(90deg, transparent 49.5%, rgba(215, 0, 0, 0.03) 50%, transparent 50.5%);
+  background-size: 80px 80px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Hero 3D canvas */
+#hero-3d-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 950px;
+}
+
+.hero-tag {
+  font-family: var(--font-data);
+  font-size: 0.75rem;
+  color: var(--crimson);
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  opacity: 0;
+}
+
+.hero-title {
+  font-family: var(--font-race);
+  font-size: clamp(2rem, 5.5vw, 4.2rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 20px;
+  opacity: 0;
+  color: var(--white-hot);
+  text-shadow: 0 0 60px rgba(215, 0, 0, 0.2);
+  letter-spacing: 2px;
+}
+
+.hero-title .title-accent {
+  display: block;
+  background: linear-gradient(90deg, var(--crimson-bright) 0%, var(--crimson) 60%, var(--crimson-dim) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 30px var(--crimson-glow));
+}
+
+.hero-subtitle {
+  font-family: var(--font-data);
+  font-size: clamp(0.8rem, 1.3vw, 0.95rem);
+  color: var(--text-secondary);
+  letter-spacing: 3px;
+  margin-bottom: 48px;
+  opacity: 0;
+}
+.hero-subtitle .highlight {
+  color: var(--crimson);
+}
+
+/* Ghost CTA Buttons — DRS / Overtake Style */
+.hero-ctas {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+
+.btn-ghost {
+  font-family: var(--font-race);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: transparent;
+  border: 1px solid rgba(215, 0, 0, 0.3);
+  padding: 14px 36px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s var(--ease-snap);
+  border-radius: var(--radius-sharp);
+}
+.btn-ghost::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(215, 0, 0, 0.1), transparent);
+  opacity: 0;
+  transition: opacity 0.35s ease;
+}
+.btn-ghost:hover {
+  color: var(--white-hot);
+  border-color: var(--crimson);
+  box-shadow: 0 0 30px rgba(215, 0, 0, 0.2), inset 0 0 30px rgba(215, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+.btn-ghost:hover::before {
+  opacity: 1;
+}
+.btn-ghost .btn-indicator {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--crimson);
+  box-shadow: 0 0 10px var(--crimson-glow);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 0.5; box-shadow: 0 0 5px var(--crimson-glow); }
+  50% { opacity: 1; box-shadow: 0 0 15px var(--crimson-glow); }
+}
+
+/* Scroll Prompt */
+.scroll-prompt {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  cursor: pointer;
+}
+.scroll-prompt span {
+  font-family: var(--font-data);
+  font-size: 0.65rem;
+  color: var(--crimson);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  animation: breathe 2.5s ease-in-out infinite;
+}
+.scroll-arrow {
+  width: 16px;
+  height: 16px;
+  border-right: 1.5px solid var(--crimson);
+  border-bottom: 1.5px solid var(--crimson);
+  transform: rotate(45deg);
+  animation: arrowBounce 2s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; text-shadow: 0 0 15px var(--crimson-glow); }
+}
+@keyframes arrowBounce {
+  0%, 100% { transform: rotate(45deg) translateY(0); opacity: 0.4; }
+  50% { transform: rotate(45deg) translateY(6px); opacity: 1; }
+}
+
+/* ============================================================
+   ABOUT — THE TELEMETRY
+   ============================================================ */
+#telemetry {
+  padding-top: calc(var(--section-padding) + 40px);
+}
+
+.telemetry-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 5vw, 80px);
+  align-items: start;
+}
+
+/* Driver Stats Panel */
+.driver-stats-panel {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-panel);
+  padding: 36px 32px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Carbon texture on panel */
+.driver-stats-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.012) 2px,
+      rgba(255, 255, 255, 0.012) 4px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+.driver-stats-panel > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Top status bar on panel */
+.driver-stats-panel::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+}
+
+.driver-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.driver-number {
+  font-family: var(--font-race);
+  font-size: 2.5rem;
+  color: var(--crimson);
+  line-height: 1;
+  text-shadow: 0 0 20px var(--crimson-glow);
+}
+
+.driver-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.driver-name {
+  font-family: var(--font-race);
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  letter-spacing: 2px;
+}
+
+.driver-team {
+  font-family: var(--font-data);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* Telemetry Bars */
+.telemetry-bar-group {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.telemetry-bar {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemetry-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.telemetry-bar-label {
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.telemetry-bar-value {
+  font-family: var(--font-data);
+  font-size: 0.8rem;
+  color: var(--crimson);
+  letter-spacing: 1px;
+}
+
+.telemetry-bar-track {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.telemetry-bar-fill {
+  height: 100%;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--crimson-dim), var(--crimson), var(--crimson-bright));
+  box-shadow: 0 0 15px var(--crimson-glow);
+  width: 0%;
+  transition: width 1.2s var(--ease-aggressive);
+}
+
+/* Telemetry text content */
+.telemetry-text {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.telemetry-text p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Race Stats Grid */
+.race-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: 16px;
+}
+
+.race-stat {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sharp);
+  padding: 18px 14px;
+  text-align: center;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.race-stat:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-crimson);
+}
+
+.race-stat-number {
+  font-family: var(--font-race);
+  font-size: 1.6rem;
+  color: var(--crimson);
+  display: block;
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.race-stat-label {
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* ============================================================
+   PROJECTS — THE GRAND PRIX
+   ============================================================ */
+#grandprix {
+  overflow: visible;
+}
+
+.projects-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.performance-modules {
+  display: flex;
+  gap: 28px;
+  padding: 40px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Project Cards — Performance Module */
+.perf-module {
+  flex: 0 0 360px;
+  max-width: 380px;
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  transition: transform 0.4s var(--ease-snap), border-color 0.4s ease, box-shadow 0.4s ease;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Top racing stripe */
+.perf-module::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 5;
+}
+
+.perf-module:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 20px 60px rgba(215, 0, 0, 0.1), 0 0 0 1px rgba(215, 0, 0, 0.08);
+}
+.perf-module:hover::before {
+  opacity: 1;
+}
+
+.perf-module-visual {
+  width: 100%;
+  height: 220px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.perf-module-visual canvas {
+  width: 100%;
+  height: 100%;
+}
+
+.project-gradient-1 {
+  background: linear-gradient(135deg, #0A0A0A 0%, #1a0505 40%, #0d0000 100%);
+}
+.project-gradient-2 {
+  background: linear-gradient(135deg, #0A0A0A 0%, #0a0515 40%, #050010 100%);
+}
+.project-gradient-3 {
+  background: linear-gradient(135deg, #0A0A0A 0%, #151005 40%, #0d0a00 100%);
+}
+
+.module-icon-3d {
+  font-size: 3.5rem;
+  opacity: 0.5;
+  filter: drop-shadow(0 0 20px var(--crimson-glow));
+}
+
+.perf-module-body {
+  padding: 28px 28px 32px;
+}
+
+.module-tag {
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  color: var(--crimson);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.module-title {
+  font-family: var(--font-race);
+  font-size: 1.1rem;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.module-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 20px;
+}
+
+.module-tech-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tech-chip {
+  font-family: var(--font-data);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  background: rgba(215, 0, 0, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  padding: 4px 12px;
+  border-radius: var(--radius-sharp);
+  letter-spacing: 0.5px;
+  transition: border-color 0.3s ease, color 0.3s ease;
+}
+.tech-chip:hover {
+  border-color: rgba(215, 0, 0, 0.3);
+  color: var(--crimson);
+}
+
+/* ============================================================
+   SKILLS — THE POWER UNIT
+   ============================================================ */
+#powerunit {
+  padding-bottom: calc(var(--section-padding) + 20px);
+}
+
+.powerunit-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+/* 3D Engine Container */
+.engine-3d-container {
+  width: 100%;
+  max-width: 750px;
+  height: 420px;
+  margin: 0 auto 40px;
+  position: relative;
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+}
+
+/* Instruction overlay */
+.engine-instruction {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-data);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  background: rgba(10, 10, 10, 0.8);
+  padding: 6px 16px;
+  border-radius: var(--radius-sharp);
+  border: 1px solid var(--glass-border);
+  z-index: 5;
+  pointer-events: none;
+  animation: breathe 3s ease-in-out infinite;
+}
+
+#engine-canvas {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(180deg, var(--bg-obsidian), rgba(20, 0, 0, 0.3));
+}
+
+/* Skill detail panel on engine */
+.engine-detail-panel {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border-hover);
+  border-radius: var(--radius-panel);
+  padding: 18px 28px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  opacity: 0;
+  transition: opacity 0.35s ease, transform 0.35s var(--ease-spring);
+  pointer-events: none;
+  min-width: 300px;
+  z-index: 5;
+}
+.engine-detail-panel.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.engine-part-name {
+  font-family: var(--font-race);
+  font-size: 0.8rem;
+  color: var(--crimson);
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+.engine-part-desc {
+  font-family: var(--font-data);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Tech Specs Grid */
+.tech-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.tech-spec-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sharp);
+  padding: 24px 20px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s var(--ease-snap);
+  position: relative;
+  overflow: hidden;
+  cursor: default;
+}
+
+.tech-spec-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--crimson), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.tech-spec-card:hover {
+  border-color: var(--glass-border-hover);
+  box-shadow: var(--shadow-crimson);
+  transform: translateY(-3px);
+}
+.tech-spec-card:hover::before {
+  opacity: 0.6;
+}
+
+.spec-icon {
+  font-size: 1.8rem;
+  margin-bottom: 14px;
+  display: block;
+  filter: grayscale(30%);
+}
+
+.spec-title {
+  font-family: var(--font-race);
+  font-size: 0.75rem;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: 1px;
+}
+
+.spec-desc {
+  font-family: var(--font-data);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   CONTACT — THE PIT STOP
+   ============================================================ */
+#pitstop {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Checkered flag pattern at bottom */
+#pitstop::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background:
+    repeating-conic-gradient(
+      rgba(255, 255, 255, 0.03) 0% 25%,
+      transparent 0% 50%
+    ) 0 0 / 30px 30px;
+  pointer-events: none;
+  mask-image: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+  -webkit-mask-image: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+}
+
+/* Crimson glow from bottom */
+#pitstop::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40%;
+  background: linear-gradient(to top, rgba(215, 0, 0, 0.03), transparent);
+  pointer-events: none;
+}
+
+.pitstop-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: start;
+}
+
+.pitstop-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.pitstop-info p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* Social links */
+.social-links {
+  display: flex;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.social-link {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-sharp);
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.3s var(--ease-snap);
+}
+.social-link:hover {
+  color: var(--crimson);
+  border-color: var(--glass-border-hover);
+  box-shadow: 0 4px 20px rgba(215, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Pit Wall Monitor Form */
+.pitwall-monitor {
+  background: var(--glass-bg-strong);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-panel);
+  padding: 36px 32px;
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Monitor header stripe */
+.pitwall-monitor::before {
+  content: 'PIT WALL // COMMS';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 8px 20px;
+  font-family: var(--font-data);
+  font-size: 0.55rem;
+  color: var(--crimson);
+  letter-spacing: 3px;
+  background: rgba(215, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(215, 0, 0, 0.1);
+}
+
+.pitwall-monitor .form-content {
+  margin-top: 28px;
+}
+
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  font-family: var(--font-data);
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.form-input,
+.form-textarea {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(5, 5, 5, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-sharp);
+  color: var(--text-primary);
+  font-family: var(--font-data);
+  font-size: 0.85rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  outline: none;
+}
+.form-input:focus,
+.form-textarea:focus {
+  border-color: rgba(215, 0, 0, 0.4);
+  box-shadow: 0 0 20px rgba(215, 0, 0, 0.08);
+}
+.form-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+.form-input::placeholder,
+.form-textarea::placeholder {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.btn-transmit {
+  font-family: var(--font-race);
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--white-hot);
+  background: transparent;
+  border: 1px solid var(--crimson);
+  border-radius: var(--radius-sharp);
+  padding: 14px 40px;
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.35s var(--ease-snap);
+}
+.btn-transmit::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--crimson), var(--crimson-dim));
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: -1;
+}
+.btn-transmit:hover {
+  box-shadow: 0 0 30px rgba(215, 0, 0, 0.3);
+  transform: translateY(-1px);
+}
+.btn-transmit:hover::before {
+  opacity: 1;
+}
+.btn-transmit:active {
+  transform: translateY(1px);
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+#footer {
+  padding: 40px;
+  text-align: center;
+  border-top: 1px solid var(--glass-border);
+  position: relative;
+  z-index: 1;
+}
+
+/* Checkered micro-pattern */
+#footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    var(--crimson) 30%,
+    var(--crimson) 70%,
+    transparent 100%
+  );
+  opacity: 0.3;
+}
+
+.footer-text {
+  font-family: var(--font-data);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+.footer-text .accent {
+  color: var(--crimson);
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 1024px) {
+  .tech-specs-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--section-padding) 20px;
+  }
+
+  #main-nav {
+    padding: 14px 20px;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(20px);
+    flex-direction: column;
+    padding: 24px;
+    gap: 20px;
+    border-bottom: 1px solid var(--glass-border);
+  }
+  .nav-links.open {
+    display: flex;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+
+  .telemetry-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .performance-modules {
+    flex-direction: column;
+    align-items: center;
+  }
+  .perf-module {
+    flex: 0 0 auto;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .tech-specs-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .engine-3d-container {
+    height: 300px;
+  }
+
+  .pitstop-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .race-stats {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .race-stat-number {
+    font-size: 1.3rem;
+  }
+
+  #hero {
+    padding: 20px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: center;
+  }
+  .btn-ghost {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 1.7rem;
+  }
+  .tech-specs-grid {
+    grid-template-columns: 1fr;
+  }
+  .race-stats {
+    grid-template-columns: 1fr;
+  }
+  .engine-3d-container {
+    height: 250px;
+  }
+}
